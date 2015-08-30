@@ -1,0 +1,76 @@
+---
+title: "seikatu2"
+author: "Yusuke Fukasawa"
+date: "2015年8月29日"
+output: html_document
+---
+
+文字化けを恐れているので、あまり日本語での注釈はつけませんよ！
+
+Set Up
+========================================================
+
+```{r}
+require(randomForest)
+require(psych)
+s<-read.csv("seikatu.csv",fileEncoding="utf-8",header=T)
+s1<-s[,-1]
+snikkei<-s1[,-2]
+sgdp<-s1[,-1]
+anames<-read.csv("seikatuname.csv",fileEncoding="cp932",header=F)
+snames<-anames[,c(1,2,3,4)]
+colnames(snames)<-c("names","c1","c2","c3")
+```
+
+RandomForest Analysis for Seikatu Teiten with Nikkei and Real GDP
+========================================================
+
+```{r}
+#nikkei
+classifier<-randomForest(nikkei~.,data=snikkei,importance=T)
+importancenikkei<-importance(classifier)
+importancenikkei<-data.frame(importancenikkei)
+importancenikkei$names<-rownames(importancenikkei)
+importancenikkei<-merge(importancenikkei,snames,by="names",all=F)
+importancenikkei<-importancenikkei[,-1]
+importancenikkei<-importancenikkei[order(- importancenikkei$X.IncMSE),]
+
+#gdp
+classifier<-randomForest(realgdp~.,data=sgdp,importance=T)
+importancegdp<-importance(classifier)
+importancegdp<-data.frame(importancegdp)
+importancegdp$names<-rownames(importancegdp)
+importancegdp<-merge(importancegdp,snames,by="names",all=F)
+importancegdp<-importancegdp[,-1]
+importancegdp<-importancegdp[order(- importancegdp$X.IncMSE),]
+```
+
+Importance for Nikkei
+========================================================
+
+```{r}
+knitr::kable(head(importancenikkei,20))
+```
+
+Importance for Real GDP
+========================================================
+
+```{r}
+knitr::kable(head(importancegdp,20))
+```
+
+Model Fitting with 20 variables
+========================================================
+
+Nikkei
+```{r}
+importancenikkei0<-importance(classifier)
+importancenikkei$names<-rownames(importancenikkei)
+importancenikkei<-merge(importancenikkei,snames,by="names",all=F)
+nikkeivariable<-subset(importancenikkei,X.IncMSE > 0)
+```
+
+Real GDP
+```{r}
+
+```

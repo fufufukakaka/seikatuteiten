@@ -1,0 +1,67 @@
+---
+title: "seikatuteiten"
+author: "Yusuke Fukasawa"
+date: "2015年8月29日"
+output: html_document
+---
+
+生活定点の相関が高い項目を考察しますぞい。使うのは1998年からのデータ。NAがない項目のみ使用。
+
+```{r}
+require(psych)
+s<-read.csv("seikatu.csv",fileEncoding="utf-8",header=T)
+s1<-s[,-1]
+anames<-read.csv("seikatuname.csv",fileEncoding="cp932",header=F)
+snames<-anames[,c(1,2,3,4)]
+colnames(snames)<-c("names","c1","c2","c3")
+```
+
+相関行列を計算して、日経平均と実質GDPに対して0.7以上or-0.7以下の相関係数を持つ値のみ抽出する
+
+```{r}
+scor<-cor(s1)
+scor1<-scor[,c(1,2)]
+scor1<-data.frame(scor1)
+scorhighandlow<-subset(scor1,(nikkei > 0.7 | nikkei < -0.7 | realgdp > 0.7 | realgdp < -0.7))
+scorhighandlow$names<-rownames(scorhighandlow)
+```
+
+出した。これをカテゴリー名と結合して、相関が高い10項目を出力する。
+
+```{r}
+smerge<-merge(scorhighandlow,snames,by="names",all=F)
+smerge<-smerge[,-1]
+scornikkeihigh<-smerge[order(- smerge$nikkei),]
+scornikkeilow<-smerge[order(smerge$nikkei),]
+scorgdplow<-smerge[order(smerge$realgdp),]
+scorgdphigh<-smerge[order(- smerge$realgdp),]
+```
+
+日経平均と正の相関がある10項目
+========================================================
+```{r}
+knitr::kable(head(scornikkeihigh,10))
+```
+
+日経平均と負の相関がある10項目
+========================================================
+```{r}
+knitr::kable(head(scornikkeilow,10))
+```
+
+実質GDPと正の相関がある10項目
+========================================================
+```{r}
+knitr::kable(head(scorgdphigh,10))
+```
+
+実質GDPと負の相関がある10項目
+========================================================
+```{r}
+knitr::kable(head(scorgdplow,10))
+```
+
+```{r}
+#これでダウンロード
+#write.csv(smerge,"scortable.csv",fileEncoding="cp932")
+```

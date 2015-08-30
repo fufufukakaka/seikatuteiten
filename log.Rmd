@@ -1,0 +1,122 @@
+---
+title: "economicindicator3"
+output: html_document
+---
+
+譎ｯ豌怜虚蜷第欠謨ｰ縺ｮ荳ｭ縺ｧ縺ｩ繧後′荳?逡ｪ譎ｯ豌励ｒ繧医￥陦ｨ縺励※縺?繧九ｓ縺?繧阪≧縺九→縺?縺?邏?譛ｴ縺ｪ逍大撫繧定ｧ｣豎ｺ縺励◆縺?縲?
+
+```{r}
+require(ggplot2)
+require(reshape2)
+require(randomForest)
+require(DT)
+require(psych)
+require(GPArotation)
+eco<-read.csv("predicteconomyv2.csv",header=T,fileEncoding="cp932")
+eco1<-eco[,-1]
+```
+
+荳ｻ謌仙??蛻?譫舌°繧峨ｄ縺｣縺ｦ縺ｿ繧医≧縺?
+
+```{r}
+pc<-prcomp(eco1,scale=T)
+biplot(pc)
+summary(pc)
+```
+
+縺ｨ縺?縺?縺薙→縺ｪ縺ｮ縺ｧPC4縺ｧ隱ｬ譏主鴨縺?8蜑ｲ繧定ｶ?縺医ｋ讓｡讒倥?? PC4縺ｾ縺ｧ縺ｮ螟画焚蠑上ｒ隕九※縺ｿ繧医≧
+
+```{r}
+rotation<-data.frame(pc$rotation)
+rotation1<-rotation[,c(1,2,3,4)]
+datatable(rotation1)
+```
+
+譖ｴ縺ｫ蝗?蟄仙??譫舌ｂ隧ｦ縺励※縺ｿ繧?
+
+```{r}
+eco2<-eco1[,-1]
+#蝗?蟄先焚繧定ｪｿ譟ｻ
+vss(eco2,n=8,use="complete.obs")
+#8縺ｫ縺励ｍ縺ｨ縺?繧上ｌ縺溘?ｮ縺ｧ8縺ｫ縺吶ｋ
+#蝗?蟄仙??譫舌?ｮ繧ｳ繝ｼ繝?
+result <- fa(eco2,nfactors = 8,fm = "minres",rotate = "oblimin",use="complete.obs")
+#邨先棡繧貞?ｺ蜉?
+print(result,digits = 3)
+#蝗?蟄占ｲ?闕ｷ驥上ｒ蜃ｺ縺?
+printLoadings <- function (x, digits = 3, cutoff = 0.1, sort = FALSE, ...) 
+{
+    Lambda <- unclass(x)
+    p <- nrow(Lambda)
+    factors <- ncol(Lambda)
+    if (sort) {
+        mx <- max.col(abs(Lambda))
+        ind <- cbind(1L:p, mx)
+        mx[abs(Lambda[ind]) < 0.5] <- factors + 1
+        Lambda <- Lambda[order(mx, 1L:p), ]
+    }
+    cat("ﾂ･nLoadings:ﾂ･n")
+    fx <- format(round(Lambda, digits))
+    names(fx) <- NULL
+    nc <- nchar(fx[1L], type = "c")
+    fx[abs(Lambda) < cutoff] <- paste(rep(" ", nc), collapse = "")
+    newx <- print(fx, quote = FALSE, ...) # I assigned this to a variable
+    vx <- colSums(x^2)
+    varex <- rbind(`SS loadings` = vx)
+    if (is.null(attr(x, "covariance"))) {
+        varex <- rbind(varex, `Proportion Var` = vx/p)
+        if (factors > 1) 
+            varex <- rbind(varex, `Cumulative Var` = cumsum(vx/p))
+    }
+    cat("ﾂ･n")
+    print(round(varex, digits))
+    invisible(newx) #previously returned x
+}
+mmm <- printLoadings(result$loadings)
+as.table(mmm)
+datatable(mmm)
+dfm<-melt(mmm)
+g <- ggplot(
+  dfm,
+  aes (
+    x = Var1,
+    y = value,
+    fill= Var1
+  )
+)
+g <- g + geom_bar(stat = "identity")
+g <- g + facet_grid(Var2~.)
+plot(g)
+```
+
+譖ｸ縺?縺ｦ縺ｿ縺溘¢縺ｩ繧医￥繧上°繧薙↑縺?縺ｧ縺吶?ｭ縲?
+蜿悶ｊ謨｢縺医★譛?蠕後↓randomforest縺ｧ諠?蝣ｱ驥上ｒ邂怜?ｺ縺励∪縺吶◇縲?
+
+```{r}
+classifier<-randomForest(nikkei~.,data=eco1,importance=T)
+importance<-importance(classifier)
+importance<-data.frame(importance)
+importance$name<-rownames(importance)
+# 謠冗判繝ｬ繧､繝､繝ｼ繧剃ｸ?譫壹★縺､驥阪?ｭ縺ゅｏ縺帙ｋ
+g <- ggplot(
+  importance,                    # ggplot 逕ｨ繝?繝ｼ繧ｿ繝輔Ξ繝ｼ繝?
+  aes (                  # ggplot 繧ｪ繝励す繝ｧ繝ｳ險ｭ螳?
+    x = name,           # x 霆ｸ繧? df$group 縺ｨ縺吶ｋ
+    y = X.IncMSE,          # y 霆ｸ繧? df$length 縺ｨ縺吶ｋ
+    fill = name         # df$group縺ｫ蠕薙▲縺ｦ繧ｰ繝ｫ繝ｼ繝怜??縺代ｋ
+  ))
+g <- g + geom_bar(                  #plotbar縺ｫ蠖薙◆繧矩未謨ｰ
+  width = 0.8,                        # 譽偵?ｮ蟷?
+  stat = "identity")
+g <- g + xlab("Names")            # x 霆ｸ蜷?
+g <- g + ylab("importance")       # y 霆ｸ蜷?
+g <- g + ggtitle("randomforest analysis")   # 繧ｰ繝ｩ繝募錐
+plot(g)
+#諠?蝣ｱ驥上′螟ｧ縺阪＞繧ゅ?ｮ縺九ｉ鬆?縺ｫ
+import<-importance[sort.list(importance$X.IncMSE,decreasing=TRUE),]
+import<-import[,-3]
+datatable(import)
+```
+
+縺?繝ｼ繧薙→縺?縺?諢溘§?ｼ?
+谺｡縺ｯ蜊壼?ｱ蝣ゅ?ｮ逕滓ｴｻ螳夂せ縺ｨ縺ゅｏ縺帙※縺ｿ繧茨ｼ?
