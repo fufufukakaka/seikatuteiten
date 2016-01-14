@@ -1,0 +1,93 @@
+<カナダ>
+1999年に定められたフレームワークを崩すことなくそのまま運用している。
+周波数を扱うための免許にはそれぞれに応じたポイントが算出される。
+そのポイントに比例する形でreserve priceが決定する。
+
+2014年に行われた700MHz,AWS-3帯域オークションにおいては、前者については過去行われたカナダにおける周波数帯オークションが考慮された。
+
+700MHz帯域については、当局は最初、2014年のオークションと同じ最低競売価格(0.265ドル/MHz/Population)を設定しようとしたが、この地域は三つの異なるTierに分割されてしまったので、その影響からより低い値段のライセンス地域の価格を反映することになった。
+
+AWS-3帯域に関しては、同様の性質を持っているとされる2500MHz帯域の過去の最低競売価格が参考にされた。
+価格決定に際してはこちらもまた同様に当局は過去の価格のままでよいと主張したが、30MHz帯域が10MHz帯域ごとに分割されることを考慮して、やはりより低いライセンス料、より小さい地域に合わせて価格が決定された。
+https://www.ic.gc.ca/eic/site/smt-gst.nsf/eng/sf11055.html#s6.4
+
+
+<イギリス>
+
+-結論1-
+2016年中に行う2.3Ghz,3.4GHz帯域に関するオークションのreserve price決定に至る経緯
+1. 2013年のun-paired 2.6GHz帯域オークション及び2014年の900,1800MHz帯域オークションの分析を行い、その結果をもとにしている。
+2. 落札価格が想定よりも高くなりがちな傾向が見られるが、それでも想定していたレンジの中に収まるものであるので大きく価格を変えるつもりはない
+3. ただ、reserve priceが低いオークションのほうが多様な形での決着を望める可能性が高くなり、また落札者にとってもインセンティブが大きいのでロット単位を小さくしてreserve priceを下げる。
+
+2013年のun-paired 2.6GHz帯域オークション及び2014年の900,1800MHz帯域オークション時にreserve priceがどのように決められたのかについても調べる必要がある。
+-------------------調査中のメモ-----------------------------
+
+http://stakeholders.ofcom.org.uk/binaries/consultations/2.3-3.4-ghz-auction-design/statement/pssr-statement.pdf
+
+ピンポイントの資料。2015年に発行されたもので、以前も見た2016年に行う予定のオークションに関する資料。
+
+[reserve pricesに関する内容に関する理解]
+2014年のオークションで決めた価格は、出来る限り遊び(余裕)を持たせたものだった。つまり、出来るだけ多様な価格に落ち着くことを狙ったものだった。
+しかし、2015年5月に出した声明の中で、我々はそれとは逆に、オークションとしてべきレベルのreserve priceを設定する必要があるとさせてもらった。
+(価格についてはもう少し調整が必要ということか？)
+
+2015年2月には、900,1800MHz帯域の年間ライセンス料に関する長期的な決定および見通しを発表した。2013年のun-paired 2.6GHz帯域オークションに関する分析もしている。
+http://stakeholders.ofcom.org.uk/consultations/annual-licence-fees-further-consultation/
+この分析で得られたのは、全体として見通しよりも高い価格に落ち着いたということである。2.3GHz帯域のオークションも当然、事前見通しの価格レンジの中でもかなり高い値段に落ち着くことになるケースの重要性が増した。
+。
+これに対して意見してくれたのがtelefonicaである。
+PSSR(public sector用の電波)の高いニーズを考えればおそらく大きな衝突は起きないだろうとしつつも、制限付きの透明性がついてくるオークション制度を提案してきたOFCOMに対してそれでは合意を得るのが難しくなることも有り得るだろうと忠告した。
+telefonica自身はそういう施策によってある程度戦略的な需要の減少に対する関心をやわらげられるとみている。ただ、当初のPSSR提案よりも高いreserve priceを提示した例は前例がない。
+
+いろいろと協議した結果、1 million euro per 1 MHz in the 2.3GHz band and 200,000 euro per 1 MHz in the 3.4 GHz bandとした。
+次のような理由にまとめられる。
+*2.3GHz帯域の落札価格の予想範囲は2013年におけるオークションの際においてレンジに収まるものだった。よって価格設定は据え置く。
+
+*非常に低いreserve priceから始めれば、落札者にとっては早くオークションを終わらせようとするインセンティブが生まれる。よって落札価格は市場価値よりも大幅な割引価格に落ち着くと考えられる。
+*reserve priceはオークションゲームを、想定していない方向性に持っていくための重要な役割を果たすものだと我々は考えている
+
+[原文(文書内ページ番号p.14)]
+4.2
+In the November 2014 consultation we proposed reserve prices for the auction of £1 
+million per 5 MHz lot for the 3.4 GHz band and in the range of £2.5 million to £5 million per 5 MHz lot for the 2.3 GHz band. 
+We said reserve prices set at this level would provide room for relevant price discovery, while still addressing concerns 
+about gaming in the auction although some specific additional factors were relevant for each band. 
+4.3
+However, in our May 2015 statement and consultation, we said we should set the 
+final level of reserve prices as close to the actual auction as possible.
+This would allow us to take account of the latest market information and any changes in market conditions.
+Based on the responses we had received to the consultation, we could see no reason to vary the proposals set out in the November 2014 consultation.  
+4.4
+In the May 2015 statement and consultation we also noted that on 16 February 2015 we published a provisional decision 
+and further consultation on annual licence fees for 900 MHz and 1800 MHz spectrum. Thisincluded a more refined analysis of 
+auction prices and opportunity costs from the 2013 auction for the unpaired (TDD-compatible) 2.6 GHz band 
+(as a by-product of further analysis of the 800 MHz and paired (FDD-compatible) 2.6 GHz bands). 
+4.5
+These showed generally higher figures for prices and opportunity costs of unpaired 
+2.6 GHz than we reported in the November 2014 award consultation. We noted that thistended to strengthen 
+the case for the reserve prices we proposed, including prices at the top end of the range for the 2.3 GHz band. 
+Comments on Statement
+4.6
+Telefónica/O2 was the only respondent to submit comments on the level of reserve prices. 
+It expressed concern about our approach of setting ‘high’ reserve prices. It saw the risk of collusion as low (assuming 
+we proceed with a combined award after the two merger processes are resolved),given the evidence of strong demand for 
+PSSR spectrum. It also noted that Ofcom has proposed other measures, such as limited transparency, 
+which make tacit coordination more difficult. It believed such measures were sufficient to ease concerns regarding strategic demand reduction. It 
+said there was no case for setting higher reserve prices than those proposed in our first PSSR consultation.
+Our assessment
+4.7
+We have decided to proceed with reserve prices of £1 million per 1 MHz in the 2.3 GHz band and £200,000 per 1 MHz in the 3.4 GHz band;
+that is £10 million per 10 MHz lot in the 2.3 GHz band and £1 million per 5 MHz lot in the 3.4 GHz band. 
+We believe this is an appropriate approach for the following reasons:
+•
+The top end of our proposed range for the 2.3 GHz spectrum is more in line 
+with the evidence on the relevant auction prices and opportunity costs in our 
+2013 auction, as we explain above;
+•
+We remain of the view that very low reserve prices may provide incentives 
+for bidders to attempt to bring the auction to an earlier end, thereby acquiring 
+the spectrum at a significant discount to its true market value;
+•
+We also remain of the view that reserve prices have a role to play in making gaming less likely.
+We note that these reserve prices are no higher than those proposed in our November 2014 consultation.
